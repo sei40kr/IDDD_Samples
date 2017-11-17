@@ -31,7 +31,7 @@ then
   cat 1>&2 <<EOM
   Error: You should be a member of group \`docker\`. To resolve this, run this:
 
-    sudo usermod -aG docker "${USERNAME}"
+    sudo usermod -aG docker "\${USERNAME}"
 
 EOM
   exit 1
