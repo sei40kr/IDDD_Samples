@@ -45,7 +45,7 @@ public class ConnectionSettings extends AssertionConcern {
      * @return ConnectionSettings
      */
     public static ConnectionSettings instance() {
-        return new ConnectionSettings("localhost", -1, "/", null, null);
+        return new ConnectionSettings("rabbitmq", -1, "/", null, null);
     }
 
     /**

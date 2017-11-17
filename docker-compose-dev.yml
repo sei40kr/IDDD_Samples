@@ -2,20 +2,26 @@
 version: '3.0'
 
 services:
-  db:
-    image: mysql
-    restart: always
-    ports:
-      - 3306:3306
+  gradle:
+    image: 'gradle:4.3-jdk7-alpine'
+    working_dir: '/home/gradle/project'
+    entrypoint: gradle test
+    volumes:
+      - '.:/home/gradle/project'
+    links:
+      - 'mysql'
+      - 'rabbitmq'
+    depends_on:
+      - 'mysql'
+      - 'rabbitmq'
+  mysql:
+    image: 'mysql:5'
     environment:
       MYSQL_ROOT_PASSWORD: 'root'
-      MYSQL_DATABASE: 'iddd_collaboration'
     volumes:
-      - ./docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - './docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d'
 
   rabbitmq:
-    image: rabbitmq:3-management
-    restart: always
+    image: 'rabbitmq:3-management'
     ports:
-      - 5672:5672
-      - 15672:15672
+      - '15672:15672'
